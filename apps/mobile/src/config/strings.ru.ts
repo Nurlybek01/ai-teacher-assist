@@ -31,6 +31,7 @@ export const strings = {
     minutes: 'мин',
     empty: 'Тестов пока нет',
     error: 'Не удалось загрузить тесты',
+    correctAnswer: 'Правильный ответ',
   },
 } as const;
 

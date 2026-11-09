@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button, Card, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -14,11 +15,22 @@ const getStatusLabel = (status: TestStatus): string => {
   return strings.tests.statusReady;
 };
 
-const TestCard = ({ test }: { test: AssessmentTest }) => {
+const TestCard = ({
+  test,
+  onPress,
+}: {
+  test: AssessmentTest;
+  onPress: (testId: string) => void;
+}) => {
   const theme = useTheme();
 
   return (
-    <Card style={styles.card}>
+    <Card
+      style={styles.card}
+      onPress={() => {
+        onPress(test.id);
+      }}
+    >
       <Card.Content>
         <View style={styles.cardHeader}>
           <Text variant="titleMedium" style={styles.testTitle}>
@@ -56,8 +68,17 @@ const TestCard = ({ test }: { test: AssessmentTest }) => {
 
 export default function TestsScreen() {
   const insets = useSafeAreaInsets();
-  const theme = useTheme();
+  const router = useRouter();
   const testsQuery = useTests();
+
+  const openTest = (testId: string) => {
+    router.push({
+      pathname: '/tests/[id]',
+      params: {
+        id: testId,
+      },
+    });
+  };
 
   if (testsQuery.isPending) {
     return (
@@ -111,7 +132,7 @@ export default function TestsScreen() {
         data={tests}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
-        renderItem={({ item }) => <TestCard test={item} />}
+        renderItem={({ item }) => <TestCard test={item} onPress={openTest} />}
         ListEmptyComponent={
           <Text variant="bodyMedium" style={styles.emptyText}>
             {strings.tests.empty}
