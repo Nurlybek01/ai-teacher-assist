@@ -1,11 +1,13 @@
 import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { strings } from '@/config/strings.ru';
+import { useAuthStore } from '@/features/auth/store/auth-store';
 
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
+  const logout = useAuthStore((state) => state.logout);
 
   return (
     <View
@@ -20,8 +22,12 @@ export default function SettingsScreen() {
       <Text variant="headlineMedium">{strings.navigation.settings}</Text>
 
       <Text variant="bodyMedium" style={styles.description}>
-        Здесь будут настройки профиля учителя и выход из аккаунта.
+        Здесь будут настройки профиля учителя.
       </Text>
+
+      <Button mode="contained" onPress={logout}>
+        Выйти
+      </Button>
     </View>
   );
 }

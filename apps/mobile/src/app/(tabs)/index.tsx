@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { strings } from '@/config/strings.ru';
@@ -21,15 +20,6 @@ export default function HomeScreen() {
         <Text style={styles.title}>{strings.app.name}</Text>
 
         <Text style={styles.subtitle}>{strings.app.subtitle}</Text>
-
-        <Button
-          mode="contained"
-          onPress={() => {
-            // Навигация на экран входа будет добавлена позже.
-          }}
-        >
-          {strings.common.login}
-        </Button>
       </View>
     </View>
   );

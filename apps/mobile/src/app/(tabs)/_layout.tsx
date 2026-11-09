@@ -1,8 +1,15 @@
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 
 import { strings } from '@/config/strings.ru';
+import { useAuthStore } from '@/features/auth/store/auth-store';
 
 export default function TabsLayout() {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  if (!isAuthenticated) {
+    return <Redirect href="/(auth)/login" />;
+  }
+
   return (
     <Tabs
       screenOptions={{
