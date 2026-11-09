@@ -36,6 +36,13 @@ export default function TabsLayout() {
           title: strings.navigation.analytics,
         }}
       />
+
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: strings.navigation.settings,
+        }}
+      />
     </Tabs>
   );
 }
