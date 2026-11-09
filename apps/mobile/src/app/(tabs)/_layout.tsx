@@ -29,6 +29,13 @@ export default function TabsLayout() {
           title: strings.navigation.tests,
         }}
       />
+
+      <Tabs.Screen
+        name="analytics"
+        options={{
+          title: strings.navigation.analytics,
+        }}
+      />
     </Tabs>
   );
 }
