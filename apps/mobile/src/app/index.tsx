@@ -2,6 +2,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { strings } from '@/config/strings.ru';
+
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
 
@@ -16,19 +18,17 @@ export default function HomeScreen() {
       ]}
     >
       <View style={styles.content}>
-        <Text style={styles.title}>AI-ассистент учителя</Text>
+        <Text style={styles.title}>{strings.app.name}</Text>
 
-        <Text style={styles.subtitle}>
-          Помощник учителя информатики для начальных классов
-        </Text>
+        <Text style={styles.subtitle}>{strings.app.subtitle}</Text>
 
         <Button
           mode="contained"
           onPress={() => {
-            // Пока навигация не подключена.
+            // Навигация будет добавлена на следующем шаге.
           }}
         >
-          Войти
+          {strings.common.login}
         </Button>
       </View>
     </View>
