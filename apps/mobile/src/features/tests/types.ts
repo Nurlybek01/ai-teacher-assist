@@ -1,16 +1,11 @@
 export type TestStatus = 'draft' | 'ready';
 
-// На первом этапе конструктор поддерживает только один правильный ответ.
-// Другие форматы заданий добавим отдельными типами позже.
-export type SingleChoiceQuestion = {
+export type QuestionBase = {
   id: string;
-  type: 'single_choice';
   text: string;
   topic: string;
   imageUri?: string;
   points: number;
-  options: QuestionOption[];
-  correctOptionId: string;
 };
 
 export type QuestionOption = {
@@ -18,6 +13,63 @@ export type QuestionOption = {
   text: string;
 };
 
+export type SingleChoiceQuestion = QuestionBase & {
+  type: 'single_choice';
+  options: QuestionOption[];
+  correctOptionId: string;
+};
+
+export type MatchingItem = {
+  id: string;
+  text: string;
+  imageUri?: string;
+};
+
+export type MatchingPair = {
+  leftItemId: string;
+  rightItemId: string;
+};
+
+export type MatchingQuestion = QuestionBase & {
+  type: 'matching';
+  leftItems: MatchingItem[];
+  rightItems: MatchingItem[];
+  correctPairs: MatchingPair[];
+};
+
+export type TextAnswerQuestion = QuestionBase & {
+  type: 'text_answer';
+  sampleAnswer?: string;
+  gradingCriteria?: string;
+};
+
+export type FillBlank = {
+  id: string;
+  label: string;
+  acceptedAnswers: string[];
+};
+
+export type FillBlanksQuestion = QuestionBase & {
+  type: 'fill_blanks';
+  blanks: FillBlank[];
+};
+
+export type CreativeQuestion = QuestionBase & {
+  type: 'creative';
+  instructions: string;
+  gradingCriteria?: string;
+};
+
+// Полная модель форматов, которые будем подключать поэтапно.
+export type AssessmentQuestion =
+  | SingleChoiceQuestion
+  | MatchingQuestion
+  | TextAnswerQuestion
+  | FillBlanksQuestion
+  | CreativeQuestion;
+
+// Пока API и экран поддерживают только выбор одного ответа.
+// Расширим этот тип после подготовки обработки остальных форматов.
 export type TestQuestion = SingleChoiceQuestion;
 
 export type AssessmentTest = {

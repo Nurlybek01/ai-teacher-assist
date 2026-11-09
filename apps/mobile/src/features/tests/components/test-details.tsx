@@ -82,7 +82,12 @@ export function TestDetails() {
         data={data.questions}
         keyExtractor={(item) => item.id}
         style={styles.list}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[
+          styles.listContent,
+          {
+            paddingBottom: insets.bottom + appSpacing.lg,
+          },
+        ]}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View style={styles.header}>
@@ -98,13 +103,16 @@ export function TestDetails() {
                   {strings.tests.statuses[data.status]}
                 </Text>
 
-                <Text variant="bodyMedium">Класс: {data.className}</Text>
+                <Text variant="bodyMedium">{data.className}</Text>
+
                 <Text variant="bodyMedium">
                   {strings.tests.questionCount}: {data.questions.length}
                 </Text>
+
                 <Text variant="bodyMedium">
                   {strings.tests.maximumScore}: {maximumScore}
                 </Text>
+
                 <Text variant="bodyMedium">
                   {strings.tests.timeLimit}: {data.timeLimitMinutes}
                 </Text>
@@ -140,6 +148,16 @@ function QuestionCard({ question, index }: QuestionCardProps) {
         <Text variant="bodyMedium" style={styles.secondaryText}>
           {strings.tests.topic}: {question.topic}
         </Text>
+
+        <Text variant="labelLarge">{strings.tests.optionsTitle}</Text>
+
+        <View style={styles.options}>
+          {question.options.map((option) => (
+            <View key={option.id} style={styles.option}>
+              <Text variant="bodyMedium">{option.text}</Text>
+            </View>
+          ))}
+        </View>
       </Card.Content>
     </Card>
   );
@@ -151,12 +169,19 @@ const styles = StyleSheet.create({
     backgroundColor: paperTheme.colors.background,
     paddingHorizontal: appSpacing.lg,
   },
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: appSpacing.md,
+    padding: appSpacing.lg,
+    backgroundColor: paperTheme.colors.background,
+  },
   list: {
     flex: 1,
   },
   listContent: {
     gap: appSpacing.md,
-    paddingBottom: appSpacing.lg,
   },
   header: {
     gap: appSpacing.md,
@@ -164,6 +189,15 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     gap: appSpacing.sm,
+  },
+  options: {
+    gap: appSpacing.sm,
+  },
+  option: {
+    padding: appSpacing.sm,
+    borderRadius: paperTheme.roundness,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paperTheme.colors.outlineVariant,
   },
   status: {
     color: paperTheme.colors.primary,

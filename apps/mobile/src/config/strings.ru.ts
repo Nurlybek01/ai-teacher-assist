@@ -32,6 +32,7 @@ export const strings = {
     questionsTitle: 'Вопросы',
     questionNumber: 'Вопрос',
     topic: 'Тема',
+    optionsTitle: 'Варианты ответа',
   },
 } as const;
 
