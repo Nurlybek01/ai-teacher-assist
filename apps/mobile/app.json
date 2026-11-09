@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ai-assist",
-    "slug": "ai-assist",
+    "name": "mobile",
+    "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "aiassist",
+    "scheme": "mobile",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"

@@ -1,5 +1,5 @@
 {
-  "name": "ai-assist",
+  "name": "mobile",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
@@ -21,6 +21,7 @@
     "react-dom": "19.3.0",
     "react-native": "0.88.1",
     "react-native-gesture-handler": "~3.3.0",
+    "react-native-paper": "^5.15.4",
     "react-native-reanimated": "4.7.1",
     "react-native-safe-area-context": "~5.11.1",
     "react-native-screens": "~4.30.1",
