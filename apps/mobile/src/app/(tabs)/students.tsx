@@ -1,5 +1,6 @@
+import { useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Card, Text } from 'react-native-paper';
+import { ActivityIndicator, Card, Searchbar, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { strings } from '@/config/strings.ru';
@@ -8,7 +9,24 @@ import type { StudentListItem } from '@/features/students/types';
 
 export default function StudentsScreen() {
   const insets = useSafeAreaInsets();
-  const { data, isPending, isError, refetch } = useStudents();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const { data, isPending, isError } = useStudents();
+
+  const filteredStudents = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+
+    if (!query || !data) {
+      return data ?? [];
+    }
+
+    return data.filter((student) => {
+      const fullName =
+        `${student.firstName} ${student.lastName}`.toLowerCase();
+
+      return fullName.includes(query);
+    });
+  }, [data, searchQuery]);
 
   if (isPending) {
     return (
@@ -43,8 +61,14 @@ export default function StudentsScreen() {
     >
       <Text variant="headlineMedium">{strings.navigation.students}</Text>
 
+      <Searchbar
+        placeholder="Поиск по имени или фамилии"
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
+
       <FlatList
-        data={data}
+        data={filteredStudents}
         keyExtractor={(item: StudentListItem) => item.id}
         renderItem={({ item }) => (
           <Card style={styles.card}>
@@ -66,7 +90,7 @@ export default function StudentsScreen() {
         )}
         ListEmptyComponent={
           <Text variant="bodyMedium" style={styles.emptyText}>
-            {strings.common.empty}
+            Ученики не найдены
           </Text>
         }
         contentContainerStyle={styles.listContent}
