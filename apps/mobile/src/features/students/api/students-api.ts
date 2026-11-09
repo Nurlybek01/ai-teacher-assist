@@ -1,5 +1,6 @@
+import { mockStudentTopicResults } from '@/mocks/student-topic-results';
 import { mockStudents } from '@/mocks/students';
-import type { StudentListItem } from '../types';
+import type { StudentListItem, StudentTopicResult } from '../types';
 
 const delay = (milliseconds: number): Promise<void> => {
   return new Promise((resolve) => {
@@ -26,4 +27,14 @@ export async function getStudentById(
   }
 
   return student;
+}
+
+export async function getStudentTopicResults(
+  studentId: string,
+): Promise<StudentTopicResult[]> {
+  await delay(400);
+
+  // Пока результаты одинаковы для всех учеников.
+  // Позже здесь будет запрос результатов конкретного ученика.
+  return mockStudentTopicResults;
 }
