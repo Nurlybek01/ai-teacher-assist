@@ -2,11 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getTests } from '@/features/tests/api/tests-api';
 
-export const testsQueryKey = ['tests'] as const;
+export const testsQueryKeys = {
+  all: ['tests'] as const,
+  list: () => ['tests', 'list'] as const,
+  detail: (testId: string) => ['tests', 'detail', testId] as const,
+};
 
 export function useTests() {
   return useQuery({
-    queryKey: testsQueryKey,
+    queryKey: testsQueryKeys.list(),
     queryFn: getTests,
   });
 }

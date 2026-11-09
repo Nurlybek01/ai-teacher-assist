@@ -1,27 +1,37 @@
 import type { AssessmentTest } from '@/features/tests/types';
 import { mockTests } from '@/mocks/tests';
 
-// Небольшая задержка имитирует будущий запрос к Supabase.
-const delay = (milliseconds: number): Promise<void> => {
+const MOCK_REQUEST_DELAY_MS = 400;
+
+function delay(): Promise<void> {
   return new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
+    setTimeout(resolve, MOCK_REQUEST_DELAY_MS);
   });
-};
-
-export async function getTests(): Promise<AssessmentTest[]> {
-  await delay(300);
-
-  return [...mockTests];
 }
 
-export async function getTest(testId: string): Promise<AssessmentTest> {
-  await delay(250);
+// Возвращаем копии, чтобы UI не мог случайно изменить исходные моки.
+function copyTest(test: AssessmentTest): AssessmentTest {
+  return {
+    ...test,
+    questions: test.questions.map((question) => ({
+      ...question,
+      options: question.options.map((option) => ({ ...option })),
+    })),
+  };
+}
+
+export async function getTests(): Promise<AssessmentTest[]> {
+  await delay();
+
+  return mockTests.map(copyTest);
+}
+
+export async function getTestById(
+  testId: string,
+): Promise<AssessmentTest | null> {
+  await delay();
 
   const test = mockTests.find((item) => item.id === testId);
 
-  if (!test) {
-    throw new Error(`Тест с идентификатором "${testId}" не найден`);
-  }
-
-  return { ...test };
+  return test ? copyTest(test) : null;
 }

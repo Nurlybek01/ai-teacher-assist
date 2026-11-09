@@ -1,7 +1,3 @@
-// Все тексты интерфейса хранятся здесь,
-// чтобы не вшивать русский текст в компоненты.
-
-
 export const strings = {
   app: {
     name: 'AI-ассистент учителя',
@@ -13,6 +9,7 @@ export const strings = {
     empty: 'Пока ничего нет',
     error: 'Произошла ошибка',
     retry: 'Повторить',
+    back: 'Назад',
   },
   navigation: {
     home: 'Главная',
@@ -22,18 +19,20 @@ export const strings = {
     settings: 'Настройки',
   },
   tests: {
-    title: 'Тесты',
-    description: 'Черновики и готовые оценочные работы по информатике.',
-    questionsCount: 'Вопросов',
-    statusDraft: 'Черновик',
-    statusReady: 'Готов',
-    timeLimit: 'Время',
-    minutes: 'мин',
-    empty: 'Тестов пока нет',
-    error: 'Не удалось загрузить тесты',
-    correctAnswer: 'Правильный ответ',
+    statuses: {
+      draft: 'Черновик',
+      ready: 'Готов',
+    },
+    empty: 'Оценочных работ пока нет',
+    loadError: 'Не удалось загрузить оценочные работы.',
+    notFound: 'Оценочная работа не найдена',
+    questionCount: 'Количество вопросов',
+    maximumScore: 'Максимальный балл',
+    timeLimit: 'Время, мин',
+    questionsTitle: 'Вопросы',
+    questionNumber: 'Вопрос',
+    topic: 'Тема',
   },
 } as const;
-
 
 export type AppStrings = typeof strings;
