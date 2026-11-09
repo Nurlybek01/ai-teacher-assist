@@ -107,7 +107,9 @@ export default function LoginScreen() {
 
         <Button
           mode="contained"
-          onPress={handleSubmit(onSubmit)}
+          onPress={() => {
+          void handleSubmit(onSubmit)();
+          }}
           loading={isSubmitting}
           disabled={isSubmitting}
         >
