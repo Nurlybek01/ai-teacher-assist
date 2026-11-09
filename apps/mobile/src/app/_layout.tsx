@@ -18,7 +18,16 @@ export default function RootLayout() {
             screenOptions={{
               headerShown: false,
             }}
-          />
+          >
+            <Stack.Screen
+              name="students/[id]"
+              options={{
+                headerShown: true,
+                title: 'Профиль ученика',
+                headerBackTitle: 'Назад',
+              }}
+            />
+          </Stack>
         </SafeAreaProvider>
       </PaperProvider>
     </QueryClientProvider>

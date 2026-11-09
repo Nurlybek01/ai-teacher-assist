@@ -13,3 +13,17 @@ export async function getStudents(): Promise<StudentListItem[]> {
 
   return mockStudents;
 }
+
+export async function getStudentById(
+  studentId: string,
+): Promise<StudentListItem> {
+  await delay(300);
+
+  const student = mockStudents.find((item) => item.id === studentId);
+
+  if (!student) {
+    throw new Error('Ученик не найден');
+  }
+
+  return student;
+}

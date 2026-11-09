@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Card, Searchbar, Text } from 'react-native-paper';
@@ -9,6 +10,7 @@ import type { StudentListItem } from '@/features/students/types';
 
 export default function StudentsScreen() {
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
 
   const { data, isPending, isError } = useStudents();
@@ -71,7 +73,12 @@ export default function StudentsScreen() {
         data={filteredStudents}
         keyExtractor={(item: StudentListItem) => item.id}
         renderItem={({ item }) => (
-          <Card style={styles.card}>
+          <Card
+            style={styles.card}
+            onPress={() => {
+              router.push(`/students/${item.id}`);
+            }}
+          >
             <Card.Title
               title={`${item.firstName} ${item.lastName}`}
               subtitle={item.className}
