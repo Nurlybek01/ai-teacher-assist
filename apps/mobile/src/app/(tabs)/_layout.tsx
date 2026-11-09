@@ -15,6 +15,20 @@ export default function TabsLayout() {
           title: strings.navigation.home,
         }}
       />
+
+      <Tabs.Screen
+        name="students"
+        options={{
+          title: strings.navigation.students,
+        }}
+      />
+
+      <Tabs.Screen
+        name="tests"
+        options={{
+          title: strings.navigation.tests,
+        }}
+      />
     </Tabs>
   );
 }
